@@ -6,6 +6,7 @@ PROJECT_ROOT = os.path.dirname(_PKG_DIR)
 SAMPLE_RATE = 16000
 N_MFCC = 13
 USE_DELTA_MFCC = True  # Thêm Delta + Delta-Delta = 39 features
+USE_PITCH = True       # Thêm pitch features = 4 features
 
 # Level 1: 5 nguyen am — thu tu guided test U -> I -> O -> E -> A
 LABELS = ('U', 'I', 'O', 'E', 'A')
