@@ -21,9 +21,9 @@ LEGACY_LABEL_ALIASES = {}
 TEMPLATES_DIR = os.path.join(_PKG_DIR, 'data', 'templates')
 TEMPLATES_PATH = os.path.join(TEMPLATES_DIR, 'templates3.npz')
 
-DEFAULT_THRESHOLD = 0.68
+DEFAULT_THRESHOLD = 0.80
 DEFAULT_MARGIN = 0.04
-DEFAULT_THRESHOLDS = {label: 0.68 for label in LABELS}
+DEFAULT_THRESHOLDS = {label: 0.80 for label in LABELS}
 
 # Adaptive margin: margin tu dong theo do phan tan diem.
 # gap nho (nhieu class gan nhau) -> margin nho hon de tranh reject.
