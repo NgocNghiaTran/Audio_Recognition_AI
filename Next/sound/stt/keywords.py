@@ -1,0 +1,6 @@
+_DEFAULT_JUMP_WORDS = frozenset({'u'})
+_DEFAULT_LEFT_WORDS = frozenset({'o', 'a'})
+_DEFAULT_RIGHT_WORDS = frozenset({'i', 'e'})
+_STT_ALIASES_JUMP = frozenset()
+_STT_ALIASES_LEFT = frozenset({'oh', 'owe', 'ah'})
+_STT_ALIASES_RIGHT = frozenset({'eye', 'ee'})

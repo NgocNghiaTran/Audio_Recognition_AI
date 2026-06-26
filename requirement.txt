@@ -1,0 +1,9 @@
+pytmx
+SpeechRecognition
+PyAudio
+sounddevice
+numpy
+faster-whisper
+openpyxl
+librosa
+scipy
