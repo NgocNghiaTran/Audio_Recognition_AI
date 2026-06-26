@@ -2,23 +2,23 @@
 Cang gan 1.0 = cang de nham trong he thong game.
 
          U      I      O      E      A
-   U  1.00  0.92  0.89  0.95  0.95 
-   I  0.92  1.00  0.86  0.89  0.96 
-   O  0.89  0.86  1.00  0.76  0.84 
-   E  0.95  0.89  0.76  1.00  0.95 
-   A  0.95  0.96  0.84  0.95  1.00 
+   U  1.00  0.91  0.89  0.96  0.95 
+   I  0.91  1.00  0.87  0.89  0.97 
+   O  0.89  0.87  1.00  0.77  0.87 
+   E  0.96  0.89  0.77  1.00  0.95 
+   A  0.95  0.97  0.87  0.95  1.00 
 
-Mau / am: U=50, I=50, O=50, E=50, A=50
+Mau / am: U=70, I=70, O=70, E=70, A=70
 
 === Cap am GAN NHAU nhat (de nham) ===
-  I — A : cosine = 0.964
-  E — A : cosine = 0.952
-  U — E : cosine = 0.952
-  U — A : cosine = 0.950
-  U — I : cosine = 0.919
-  U — O : cosine = 0.889
+  I — A : cosine = 0.971
+  U — E : cosine = 0.958
+  U — A : cosine = 0.947
+  E — A : cosine = 0.946
+  U — I : cosine = 0.909
   I — E : cosine = 0.887
-  I — O : cosine = 0.863
+  U — O : cosine = 0.887
+  O — A : cosine = 0.873
 
 Giai thich nhanh:
 - Test 7: noi "you" luc phase U -> pho gan E/O hon U thuan.
