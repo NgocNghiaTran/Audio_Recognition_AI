@@ -74,14 +74,14 @@ class VoiceInputPipeline:
 
         # MFCC matcher
         self.mfcc = VoiceMfccMatcher(use_margin=False)
-        self.mfcc_cooldown_ms = 600  # Cooldown: 0.6s (>= 2x chunk_duration)
+        self.mfcc_cooldown_ms = 600  # Cooldown: 600ms (gấp đôi chunk 300ms)
         self.last_mfcc_ms = 0
         self.last_cmd_time = {}  # Cooldown riêng cho từng command
 
         # Determine mode
         if self.mfcc.enabled:
             self.recognition_mode = 'mfcc'
-            self.chunk_duration = 0.50
+            self.chunk_duration = 0.30  # 300ms cho latency thấp hơn
         else:
             self.recognition_mode = 'stt'
 

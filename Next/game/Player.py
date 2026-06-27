@@ -196,48 +196,42 @@ class Player(object):
             # Moving up, button is pressed - full height jump
             if (self.y_vel < 0 and core.keyU):
                 self.y_vel += GRAVITY
-                
+
             # Moving up, button is not pressed - cut jump (lower)
             elif (self.y_vel < 0 and not core.keyU):
                 self.y_vel += GRAVITY * LOW_JUMP_MULTIPLIER
-            
+
             # Moving down
             else:
                 self.y_vel += GRAVITY * FALL_MULTIPLIER
-            
+
             if self.y_vel > MAX_FALL_SPEED:
                 self.y_vel = MAX_FALL_SPEED
 
+        # Cập nhật vị trí player
+        self._update_position(core)
+
     def _get_jump_power(self, core):
         """Lấy jump power dựa trên voice volume hoặc keyboard."""
-        # Nếu dùng keyboard (keyU_keyboard), dùng power mặc định
         if core.keyU_keyboard:
             return JUMP_POWER
-        
-        # Nếu dùng voice, tính power từ volume
-        voice_volume = getattr(core, 'voice_jump_volume', 0.5)
-        
-        # voice_volume: 0.0 (yên) → 1.0 (rất lớn)
-        # jump_power: MIN_JUMP_POWER → MAX_JUMP_POWER
-        
-        MIN_JUMP_POWER = 3.0   # Nhảy thấp
-        MAX_JUMP_POWER = 6.0   # Nhảy cao (vượt 2 brick)
-        
-        jump_power = MIN_JUMP_POWER + (MAX_JUMP_POWER - MIN_JUMP_POWER) * voice_volume
-        
-        return jump_power
 
+        voice_volume = getattr(core, 'voice_jump_volume', 0.5)
+        MIN_JUMP_POWER = 3.0
+        MAX_JUMP_POWER = 6.0
+        return MIN_JUMP_POWER + (MAX_JUMP_POWER - MIN_JUMP_POWER) * voice_volume
+
+    def _update_position(self, core):
         blocks = core.get_map().get_blocks_for_collision(self.rect.x // 32, self.rect.y // 32)
-        
+
         self.pos_x += self.x_vel
         self.rect.x = self.pos_x
-        
+
         self.update_x_pos(blocks)
 
         self.rect.y += self.y_vel
         self.update_y_pos(blocks, core)
 
-        # on_ground parameter won't be stable without this piece of code
         coord_y = self.rect.y // 32
         if self.powerLVL > 0:
             coord_y += 1
@@ -246,11 +240,9 @@ class Player(object):
                 if pg.Rect(self.rect.x, self.rect.y + 1, self.rect.w, self.rect.h).colliderect(block.rect):
                     self.on_ground = True
 
-        # Map border check
         if self.rect.y > 448:
             core.get_map().player_death(core)
 
-        # End Flag collision check
         if self.rect.colliderect(core.get_map().flag.pillar_rect):
             core.get_map().player_win(core)
 

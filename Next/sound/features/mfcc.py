@@ -13,23 +13,9 @@ def load_mfcc_extractor():
                 y = np.pad(y, (0, MIN_MFCC_SAMPLES - len(y)), mode='reflect')
             n_fft = min(2048, 1 << int(np.ceil(np.log2(max(len(y), 512)))))
             hop = max(n_fft // 4, 1)
-
-            # Extract base MFCC
-            mfcc = librosa.feature.mfcc(
+            m = librosa.feature.mfcc(
                 y=y, sr=sr, n_mfcc=N_MFCC, n_fft=n_fft, hop_length=hop)
-
-            # Thêm Delta MFCC (velocity - thay đổi theo thời gian)
-            mfcc_delta = librosa.feature.delta(mfcc)
-
-            # Thêm Delta-Delta MFCC (acceleration - gia tốc)
-            mfcc_delta2 = librosa.feature.delta(mfcc, order=2)
-
-            # Ghép nối: base + delta + delta2 = 3 * N_MFCC features
-            mfcc_mean = mfcc.mean(axis=1)
-            delta_mean = mfcc_delta.mean(axis=1)
-            delta2_mean = mfcc_delta2.mean(axis=1)
-
-            return np.concatenate([mfcc_mean, delta_mean, delta2_mean])
+            return m.mean(axis=1)
 
         return extract, 'librosa'
     except ImportError:
