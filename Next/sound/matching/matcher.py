@@ -15,8 +15,6 @@ from sound.config import (
     TEMPLATES_DIR,
     TEMPLATES_PATH,
     SOFTMAX_TEMPERATURE,
-    USE_DELTA_MFCC,
-    USE_PITCH,
 )
 from sound.features.mfcc import load_mfcc_extractor
 from sound.matching.cosine import (
@@ -43,9 +41,7 @@ class VoiceMfccMatcher(object):
                     self.thresholds[label] = float(val)
                 except ValueError:
                     pass
-        self._extract, self._backend = load_mfcc_extractor(
-            use_delta=USE_DELTA_MFCC, use_pitch=USE_PITCH
-        )
+        self._extract, self._backend = load_mfcc_extractor()
         self.templates = {}
         self.enabled = False
         if self._extract is None:

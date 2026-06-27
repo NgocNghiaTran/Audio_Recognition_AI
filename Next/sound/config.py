@@ -4,9 +4,7 @@ _PKG_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(_PKG_DIR)
 
 SAMPLE_RATE = 16000
-N_MFCC = 13
-USE_DELTA_MFCC = True  # Thêm Delta + Delta-Delta = 39 features
-USE_PITCH = True       # Thêm pitch features = 4 features
+N_MFCC = 20  # Tang tu 13 len 20 de co nhieu thong tin hon
 
 # Level 1: 5 nguyen am — thu tu guided test U -> I -> O -> E -> A
 LABELS = ('U', 'I', 'O', 'E', 'A')
@@ -20,7 +18,7 @@ LABEL_TO_COMMAND = {
 LEGACY_LABEL_ALIASES = {}
 
 TEMPLATES_DIR = os.path.join(_PKG_DIR, 'data', 'templates')
-TEMPLATES_PATH = os.path.join(TEMPLATES_DIR, 'templates3.npz')
+TEMPLATES_PATH = os.path.join(TEMPLATES_DIR, 'templates4.npz')  # v4 = 20 MFCC + Delta + Delta2
 
 DEFAULT_THRESHOLD = 0.80
 DEFAULT_MARGIN = 0.04

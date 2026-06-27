@@ -146,7 +146,9 @@ class Player(object):
             self.already_jumped = False
         elif core.keyU:
             if self.on_ground and not self.already_jumped:
-                self.y_vel = -JUMP_POWER
+                # Dynamic jump power từ voice volume
+                jump_power = self._get_jump_power(core)
+                self.y_vel = -jump_power
                 self.already_jumped = True
                 self.next_jump_time = pg.time.get_ticks() + 750
                 if self.powerLVL >= 1:
@@ -191,11 +193,11 @@ class Player(object):
             self.x_vel = 0
 
         if not self.on_ground:
-            # Moving up, button is pressed
+            # Moving up, button is pressed - full height jump
             if (self.y_vel < 0 and core.keyU):
                 self.y_vel += GRAVITY
                 
-            # Moving up, button is not pressed - low jump
+            # Moving up, button is not pressed - cut jump (lower)
             elif (self.y_vel < 0 and not core.keyU):
                 self.y_vel += GRAVITY * LOW_JUMP_MULTIPLIER
             
@@ -205,6 +207,25 @@ class Player(object):
             
             if self.y_vel > MAX_FALL_SPEED:
                 self.y_vel = MAX_FALL_SPEED
+
+    def _get_jump_power(self, core):
+        """Lấy jump power dựa trên voice volume hoặc keyboard."""
+        # Nếu dùng keyboard (keyU_keyboard), dùng power mặc định
+        if core.keyU_keyboard:
+            return JUMP_POWER
+        
+        # Nếu dùng voice, tính power từ volume
+        voice_volume = getattr(core, 'voice_jump_volume', 0.5)
+        
+        # voice_volume: 0.0 (yên) → 1.0 (rất lớn)
+        # jump_power: MIN_JUMP_POWER → MAX_JUMP_POWER
+        
+        MIN_JUMP_POWER = 3.0   # Nhảy thấp
+        MAX_JUMP_POWER = 6.0   # Nhảy cao (vượt 2 brick)
+        
+        jump_power = MIN_JUMP_POWER + (MAX_JUMP_POWER - MIN_JUMP_POWER) * voice_volume
+        
+        return jump_power
 
         blocks = core.get_map().get_blocks_for_collision(self.rect.x // 32, self.rect.y // 32)
         
